@@ -394,6 +394,7 @@ cdef void __on_addrinfo_resolved(uv.uv_getaddrinfo_t *resolver,
     except (KeyboardInterrupt, SystemExit):
         raise
     except BaseException as ex:
+        print('[beastdbg] __on_addrinfo_resolved', repr(ex))
         loop._handle_exception(ex)
     finally:
         request.on_done()
@@ -417,6 +418,7 @@ cdef void __on_nameinfo_resolved(uv.uv_getnameinfo_t* req,
     except (KeyboardInterrupt, SystemExit):
         raise
     except BaseException as ex:
+        print('[beastdbg] __on_nameinfo_resolved', repr(ex))
         loop._handle_exception(ex)
     finally:
         request.on_done()

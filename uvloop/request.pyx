@@ -62,4 +62,5 @@ cdef class UVRequest:
                 return
             else:
                 ex = convert_error(err)
+                print('[beastdbg] UVRequest.cancel', repr(ex), err)
                 self.loop._handle_exception(ex)

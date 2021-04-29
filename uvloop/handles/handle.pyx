@@ -169,6 +169,7 @@ cdef class UVHandle:
         if throw or self._loop is None:
             raise exc
         else:
+            print('[beastdbg] UVHandle._fatal_error', repr(self), repr(exc))
             self._loop._handle_exception(exc)
 
     cdef _error(self, exc, throw):
@@ -179,6 +180,7 @@ cdef class UVHandle:
         if throw or self._loop is None:
             raise exc
         else:
+            print('[beastdbg] UVHandle._error', repr(self), repr(exc))
             self._loop._handle_exception(exc)
 
     cdef _close(self):

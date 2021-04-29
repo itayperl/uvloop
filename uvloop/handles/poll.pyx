@@ -176,6 +176,7 @@ cdef class UVPoll(UVHandle):
                 try:
                     self.reading_handle._run()
                 except BaseException as ex:
+                    print('[beastdbg] UVPoll._fatal_error1', repr(ex))
                     self._loop._handle_exception(ex)
                 self.reading_handle = None
 
@@ -183,6 +184,7 @@ cdef class UVPoll(UVHandle):
                 try:
                     self.writing_handle._run()
                 except BaseException as ex:
+                    print('[beastdbg] UVPoll._fatal_error2', repr(ex))
                     self._loop._handle_exception(ex)
                 self.writing_handle = None
 

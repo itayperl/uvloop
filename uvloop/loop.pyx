@@ -480,6 +480,12 @@ cdef class Loop:
             uv.uv_stop(self.uvloop)  # void
 
     cdef _stop(self, exc):
+        import traceback
+        print('[beastdbg] loop._stop')
+        traceback.print_stack()
+        if exc is not None:
+            traceback.print_exception(type(exc), exc, exc.__traceback__)
+
         if exc is not None:
             self._last_error = exc
         if self._stopping == 1:
@@ -679,6 +685,12 @@ cdef class Loop:
         return TimerHandle(self, callback, args, delay, context)
 
     cdef void _handle_exception(self, object ex):
+        import traceback
+        print('[beastdbg] loop._handle_exception')
+        traceback.print_stack()
+        if ex is not None:
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+
         if isinstance(ex, Exception):
             self.call_exception_handler({'exception': ex})
         else:
@@ -1345,6 +1357,10 @@ cdef class Loop:
         Every callback already scheduled will still run.  This simply informs
         run_forever to stop looping after a complete iteration.
         """
+        import traceback
+        print('[beastdbg] loop.stop')
+        traceback.print_stack()
+
         self._call_soon_handle(
             new_MethodHandle1(
                 self,
@@ -1474,6 +1490,7 @@ cdef class Loop:
                     # Issue #336: run_forever() already finished,
                     # no need to stop it.
                     return
+            print('[beastdbg] loop.run_until_complete done_cb called', fut)
             self.stop()
 
         future.add_done_callback(done_cb)
